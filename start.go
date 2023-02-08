@@ -10,14 +10,19 @@ func main() {
 	// var student2 = "Jane" //type is inferred
 	// x := 2 //type is inferred
 
-	// fmt.Println(student1)
-	// fmt.Println(student2)
+	var name string
+	var age int
+
+	fmt.Println("Enter Your Name & Age: ")
+	fmt.Scanf("%s %d",&name, &age)
+	fmt.Printf("Your name is %s & age is %d",name,age)
+
 	// fmt.Println(x)
 	// fmt.Println("Type of student2:",reflect.TypeOf(student2))
 	// fmt.Println("Type of x:",reflect.TypeOf(x))
 
-	var chr rune
-	chr = '$'
+	// var chr rune
+	// chr = '$'
 
-	fmt.Println(chr)
+	// fmt.Println(chr)
 }
