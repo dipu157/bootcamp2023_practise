@@ -15,8 +15,13 @@ func main() {
 
 	// fmt.Println(dir)
 
-	isErr := createFile("second_file.txt", "Yap, Golang is awesome")
-	fmt.Println(isErr)
+	// isErr := createFile("second_file.txt", "Yap, Golang is awesome")
+	// fmt.Println(isErr)
+
+	err := os.Mkdir("test_folder", 0777)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
 
 }
 
