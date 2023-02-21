@@ -12,18 +12,26 @@ import "fmt"
 
 func main() {
 
-	second()
-	defer first()
-	third()
+	// second()
+	// defer first()
+	// third()
+
+	b := new(int)
+	one(b)
+	fmt.Println(*b)
 
 }
 
-func first() {
-	fmt.Println("1st")
+func one(a *int) {
+	*a = 1
 }
-func second() {
-	fmt.Println("2nd")
-}
-func third() {
-	fmt.Println("Third")
-}
+
+// func first() {
+// 	fmt.Println("1st")
+// }
+// func second() {
+// 	fmt.Println("2nd")
+// }
+// func third() {
+// 	fmt.Println("Third")
+// }
