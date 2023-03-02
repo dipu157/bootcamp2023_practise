@@ -9,11 +9,12 @@ import (
 
 func main() {
 	fmt.Println("Welcome To Web Verb")
-	PerformanceGetRequest()
+	//	PerformGetRequest()
+	PerformPostJsonRequest()
 
 }
 
-func PerformanceGetRequest() {
+func PerformGetRequest() {
 	const myurl = "http://localhost:8000/get"
 
 	response, err := http.Get(myurl)
@@ -34,4 +35,28 @@ func PerformanceGetRequest() {
 
 	fmt.Println("Bytecount is :", byteCount)
 	fmt.Println(responseString.String())
+}
+
+func PerformPostJsonRequest() {
+	const myurl = "http://localhost:8000/post"
+
+	// fake jsonpayload
+	requestBody := strings.NewReader(`
+		{
+			"coursename" : "golang course",
+			"price" : 0,
+			"platform" : "learncodeonline.in"
+		}
+	`)
+
+	response, err := http.Post(myurl, "application/json", requestBody)
+
+	if err != nil {
+		panic(err)
+	}
+	defer response.Body.Close()
+
+	content, _ := ioutil.ReadAll(response.Body)
+	fmt.Println(string(content))
+
 }
