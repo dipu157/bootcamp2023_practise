@@ -77,7 +77,7 @@ func main() {
 	//delete
 	delete2()
 
-	var v Values
+	var v url.Values
 	fmt.Println(v)
 
 }
