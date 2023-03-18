@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CustomJS Library</title>
+</head>
+<body>
+
+
+    <div id="t1">Hello student<span>ok</span></div>
+
+    <form id="myform">
+        <input type="text" name="name" placeholder="name" value="mostain" />
+        <input type="text" name="email" placeholder="email" />
+        <input type="text" name="phone" placeholder="phone" />
+
+        <br />
+        <label for="lang">Language</label>
+        <input type="checkbox" name="golang" checked /> Golang
+        <input type="checkbox" name="js" checked /> Javascript
+        <br />
+
+        <label for="gender">Gender</label>
+        <input type="radio" name="gender" value="male" checked /> Male
+        <input type="radio" name="gender" value="female" /> Female
+
+        <br />
+        <label for="photo">Photo</label>
+        <input type="file" name="mimg" accept=".jpg, .jpeg, .png" multiple="true">
+
+        <br />
+        <img id="output">
+        <textarea name="message" placeholder="message">your message</textarea>
+
+        <br />
+        <select name="country">
+            <option value=""></option>
+            <option value="bangladesh" selected>Bangladesh</option>
+            <option value="india">India</option>
+        </select>
+
+        <br />
+        <br />
+        <input type="submit" name="save" value="Save" />
+    </form>
+
+
+    <script src="lib.js"></script>
+
+
+    <script>
+
+        const output = document.getElementById('output');
+
+        //html element checking
+        var html=$('#myform').html();
+        //console.log(html);
+
+        //event listener testing
+        // $('#myform').on("submit", function(e){
+
+        //     e.preventDefault();
+        //     alert('form submit');
+
+        // });
+
+        //hide & show test
+        //$('#myform').elm[0].outerHTML
+        //$('#myform').hide();
+        //$('#myform').show();
+        //console.dir($('#myform').elm[0]);
+
+        //attr checking
+        //var name=$('#myform > input[type=text]:nth-child(1)').attr("name");
+        //console.log($('#myform > input[type=text]:nth-child(1)').attr("class","test"));
+        //console.log($('#myform > input[type=text]:nth-child(1)').attr("type"));
+
+        //console.dir($('#t1').elm.innerText);
+        //console.log('t1->'+$('#t1').html());
+        //console.log('t1->'+$('#t1').elm.outerHTML);
+
+        //css feature checking
+        //console.log('t10->'+$('#t1').css({color:"blue", fontSize:"30px"}).text());
+
+        //val checking
+        //console.log($('#myform > input[type=text]:nth-child(1)').val());
+
+        //serialize checking
+        //console.log($('#myform').serialize());
+
+        //console.log($('#myform').elm[7]);
+        //#myform > input[type=file]:nth-child(14)
+
+    //file handling
+    //const fileSelector = document.getElementById('#myform > input[type=file]:nth-child(14)');
+    const fileSelector = document.querySelector('#myform > input[type=file]:nth-child(14)');
+
+    let mform=document.querySelector('#myform');
+    
+
+    //console.log(mform.elements);
+
+   
+
+    $('#myform').on("submit", function(e){
+    //mform.addEventListener("submit", function(e){
+
+        e.preventDefault();
+        let fdata=$('#myform').formData();
+        console.dir($('#myform').formData());
+        console.log(typeof fdata);
+        //Object.values(fdata).forEach(val=> console.log(val));
+        for (const p of fdata.entries()){
+            console.log(p);
+        }
+
+        //alert('form');
+        console.log("-----------");
+        const data = $('#myform').formSubmit("http://localhost:8080/process", fdata);
+        console.log(data);
+        console.log(typeof data);
+        data.then(d => console.log(d));
+
+        return false;
+
+    });
+
+
+    fileSelector.addEventListener('changeeeee', (event) => {
+
+        const fileList = event.target.files;
+        console.log(fileList);
+        console.log(fileList.length);
+
+        //Read file metadata
+        // for(let i=0; i<fileList.length; i++){
+        //     let name=fileList[i].name;
+        //     let size=fileList[i].size;
+        //     let type=fileList[i].type;
+        //     console.log(`${name}-${size}-${type}`);
+        // }
+
+        for(let file of fileList){
+
+            console.log(`${file.name}-${file.size}-${file.type}`);
+
+            // Check if the file is an image.
+            if (file.type && !file.type.startsWith('image/')) {
+                console.log('File is not an image.', file.type, file);
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.addEventListener('load', event => {
+                console.log(event.target.readyState);
+                console.log(event.target.result);
+                output.src = event.target.result;
+            });
+            reader.readAsDataURL(file);
+
+            reader.addEventListener('progress', (event) => {
+                if (event.loaded && event.total) {
+                    const percent = (event.loaded / event.total) * 100;
+                    console.log(`Progress: ${Math.round(percent)}`);
+                }
+            });
+
+        }
+
+
+    });
+
+    //alert('thank you');
+    </script>
+    
+</body>
+</html>
