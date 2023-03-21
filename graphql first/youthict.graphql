@@ -1,0 +1,72 @@
+type Company{
+    id: Int!
+    name: String!
+    create_date: DateTime
+    status(=0): Int!
+}
+
+
+
+type Access{
+    id: Int!
+    """comment_id"""
+    cid: Company!
+    name: String!
+    status(=1): Int!
+}
+
+scalar DateTime
+
+type Query{
+    company: Company(),
+    access: Access(),
+}
+
+type Mutation{
+    create_company: CreateCompany(),
+    create_company: CreateAccess()),
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--SELECT OPTION
+enum Role {
+  ADMIN
+  STUDENT
+  USER
+}
+
+--scalar == primitive -> int,string,float
+--object == object
+scalar DateTime 
+scalar Email
+
+--INSERT INTO `company` (`id`,`name`,`create_date`,`status`)VALUES ('21','mateors','2023-03-15 17:41:32','1');
+mutation _ {
+    company(id:21,name:"mateors",create_date:"2023-03-15 17:41:32",status:1){
+        name
+        status
+        id
+        create_date
+    }
+}
+
+--SELECT name,status FROM company WHERE id=1;
+query _ {
+    company(id:1){
+        name
+        status
+    }
+}
