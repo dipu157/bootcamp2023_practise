@@ -42,19 +42,10 @@ var StudentType = graphql.NewObject( //student
 					if ok {
 						cid := row["cid"].(string)
 						fmt.Println("cid:", cid)
-						// crow := tableFields(p.Info.FieldASTs)
-						// scols, isOk := crow["cid"].([]string)
-						// if isOk {
-						// 	selcol := strings.Join(scols, ",")
-						// 	sql := fmt.Sprintf("SELECT %s FROM %s WHERE id='%v';", "company", selcol, cid)
-						// }
 						sql := selectQuery(p.Info.FieldASTs, "cid", "company", cid)
 						fmt.Println(">>", sql)
 
 					}
-					// company := make(map[string]interface{})
-					// company["id"] = "sdsdsd1212"
-					// company["name"] = "MATEORS"
 					return nil, nil
 				},
 			},
